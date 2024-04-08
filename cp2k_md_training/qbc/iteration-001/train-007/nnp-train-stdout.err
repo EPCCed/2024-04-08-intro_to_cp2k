@@ -1,0 +1,46 @@
+No protocol specified
+terminate called after throwing an instance of 'terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+[lavoisier:289847] *** Process received signal ***
+[lavoisier:289847] Signal: Aborted (6)
+[lavoisier:289847] Signal code:  (-6)
+[lavoisier:289847] [ 0] std::out_of_range/lib/x86_64-linux-gnu/libc.so.6(+0x43090)[0x7f5ed85ec090]
+[lavoisier:289847] [ 1] /lib/x86_64-linux-gnu/libc.so.6(gsignal+0xcb)[0x7f5ed85ec00b]
+[lavoisier:289847] [ 2] /lib/x86_64-linux-gnu/libc.so.6(abort+0x12b)[0x7f5ed85cb859]
+[lavoisier:289847] [ 3] '
+/lib/x86_64-linux-gnu/libstdc++.so.6(+0xa4ee6)[0x7f5ed89b5ee6]
+[lavoisier:289847] [ 4] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb6f8c)[0x7f5ed89c7f8c]
+  what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+[lavoisier:289856] *** Process received signal ***
+[lavoisier:289856] Signal: Aborted (6)
+[lavoisier:289856] Signal code:  (-6)
+[lavoisier:289847] [lavoisier:289856] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x43090)[0x7f2fbebdb090]
+[lavoisier:289856] [ 1] /lib/x86_64-linux-gnu/libc.so.6(gsignal+0xcb)[0x7f2fbebdb00b]
+[lavoisier:289856] [ 2] /lib/x86_64-linux-gnu/libc.so.6(abort+0x12b)[0x7f2fbebba859]
+[lavoisier:289856] [ 3] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xa4ee6)[0x7f2fbefa4ee6]
+[lavoisier:289856] [ 4] [ 5] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb6f8c)[0x7f2fbefb6f8c]
+[lavoisier:289856] [ 5] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb6ff7)[0x7f2fbefb6ff7]
+[lavoisier:289856] [ 6] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb7258)[0x7f2fbefb7258]
+[lavoisier:289856] [ 7] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xa82a7)[0x7f2fbefa82a7]
+[lavoisier:289856] [ 8] nnp-train(+0x63591)[0x55bdb4204591]
+[lavoisier:289856] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb6ff7)[0x7f5ed89c7ff7]
+[ 9] nnp-train(+0x723b6)[0x55bdb42133b6]
+[lavoisier:289856] [10] nnp-train(+0x29b03)[0x55bdb41cab03]
+[lavoisier:289856] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf3)[0x7f2fbebbc083]
+[lavoisier:289856] [12] nnp-train(+0x2ac5e)[0x55bdb41cbc5e]
+[lavoisier:289856] *** End of error message ***
+[lavoisier:289847] [ 6] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb7258)[0x7f5ed89c8258]
+[lavoisier:289847] [ 7] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xa82a7)[0x7f5ed89b92a7]
+[lavoisier:289847] [ 8] nnp-train(+0x63591)[0x55ed52f96591]
+[lavoisier:289847] [ 9] nnp-train(+0x723b6)[0x55ed52fa53b6]
+[lavoisier:289847] [10] nnp-train(+0x29b03)[0x55ed52f5cb03]
+[lavoisier:289847] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf3)[0x7f5ed85cd083]
+[lavoisier:289847] [12] nnp-train(+0x2ac5e)[0x55ed52f5dc5e]
+[lavoisier:289847] *** End of error message ***
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node lavoisier exited on signal 6 (Aborted).
+--------------------------------------------------------------------------

@@ -1,0 +1,103 @@
+@SET PATH /home/llei/cp2k/final_model/final_training/model
+
+&GLOBAL
+  PROJECT mg_ml_md
+  PRINT_LEVEL LOW
+  RUN_TYPE MD
+&END GLOBAL
+
+&MOTION
+  &MD
+    STEPS 22000
+    TIMESTEP [fs] 0.5
+    ENSEMBLE NVT
+    TEMPERATURE     600
+    &THERMOSTAT
+      TYPE CSVR
+      REGION GLOBAL
+      &CSVR
+        TIMECON  50
+      &END CSVR
+    &END THERMOSTAT
+  &END MD
+  &PRINT
+     &TRAJECTORY  SILENT
+       FORMAT  XMOL
+       &EACH
+         MD  10
+       &END EACH
+     &END TRAJECTORY
+     &CELL  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END CELL
+     &VELOCITIES  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END VELOCITIES
+     &FORCES  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END FORCES
+     &RESTART  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END RESTART
+  &END PRINT
+&END MOTION
+
+&FORCE_EVAL
+  METHOD  NNP
+  &NNP
+    NNP_INPUT_FILE_NAME ${PATH}/nnp-000/input.nn
+    SCALE_FILE_NAME  ${PATH}/nnp-000/scaling.data
+    &MODEL
+      WEIGHTS ${PATH}/nnp-000/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-001/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-002/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-003/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-004/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-005/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-006/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-007/weights
+    &END MODEL
+    &PRINT
+      &ENERGIES SILENT
+        &EACH
+          MD 1
+        &END EACH
+      &END ENERGIES
+    &END PRINT
+  &END NNP
+  &SUBSYS
+    &TOPOLOGY
+      CONN_FILE_FORMAT OFF
+      COORD_FILE_NAME mg.xyz
+      COORD_FILE_FORMAT XYZ
+    &END TOPOLOGY
+     &CELL
+       A     12.8170850983 0.0000000000 0.0000000000
+       B    -6.4085425491 11.0999212976 0.0000000000
+       C     0.0000000000 0.0000000000 10.2925216738
+       MULTIPLE_UNIT_CELL  1 1 1
+     &END CELL
+  &END SUBSYS
+&END FORCE_EVAL

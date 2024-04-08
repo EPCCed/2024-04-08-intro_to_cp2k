@@ -1,0 +1,136 @@
+ &GLOBAL
+   WALLTIME 600
+   PREFERRED_FFT_LIBRARY  FFTW3
+   EXTENDED_FFT_LENGTHS  T
+   PRINT_LEVEL  LOW
+   PROJECT_NAME sys
+   RUN_TYPE  MD
+ &END GLOBAL
+
+ &MOTION
+   &GEO_OPT
+     OPTIMIZER  BFGS
+     MAX_ITER  100
+   &END GEO_OPT
+   &CELL_OPT
+     OPTIMIZER  BFGS
+     MAX_ITER  600
+     TYPE  DIRECT_CELL_OPT
+     &BFGS
+       RESTART_HESSIAN  F
+       RESTART_FILE_NAME sys-BFGS.Hessian
+     &END BFGS
+   &END CELL_OPT
+   &MD
+     ENSEMBLE  NVT
+     STEPS  10000
+     TIMESTEP  0.5
+     TEMPERATURE  600
+     &THERMOSTAT
+       TYPE  CSVR
+       &CSVR
+         TIMECON  50
+       &END CSVR
+     &END THERMOSTAT
+   &END MD
+   &PRINT
+     &TRAJECTORY  SILENT
+       FORMAT  XMOL
+       &EACH
+         MD  10
+       &END EACH
+     &END TRAJECTORY
+     &CELL  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END CELL
+     &VELOCITIES  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END VELOCITIES
+     &FORCES  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END FORCES
+     &RESTART  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END RESTART
+   &END PRINT
+ &END MOTION
+ &FORCE_EVAL
+   METHOD  QS
+   STRESS_TENSOR  ANALYTICAL
+   &DFT
+     BASIS_SET_FILE_NAME BASIS_MOLOPT
+     BASIS_SET_FILE_NAME BASIS_MOLOPT_UCL
+     POTENTIAL_FILE_NAME POTENTIAL
+     UKS  F
+     CHARGE  0
+     &SCF
+       MAX_SCF  500
+       EPS_SCF     1E-06
+       CHOLESKY  INVERSE
+       SCF_GUESS  RESTART
+       ADDED_MOS  100
+       &DIAGONALIZATION  T
+         ALGORITHM  STANDARD
+       &END DIAGONALIZATION
+       &SMEAR  T
+         METHOD  FERMI_DIRAC
+         ELECTRONIC_TEMPERATURE     300
+       &END SMEAR
+       &MIXING  T
+         METHOD  BROYDEN_MIXING
+         ALPHA     0.1
+         BETA     1.5
+         NBUFFER  8
+       &END MIXING
+     &END SCF
+     &QS
+       EPS_DEFAULT     1E-12
+     &END QS
+     &MGRID
+       CUTOFF     400
+       REL_CUTOFF     40
+     &END MGRID
+     &XC
+       DENSITY_CUTOFF     1E-10
+       GRADIENT_CUTOFF     1E-10
+       TAU_CUTOFF     1E-10
+       &XC_FUNCTIONAL  NO_SHORTCUT
+         &PBE  T
+         &END PBE
+       &END XC_FUNCTIONAL
+       &VDW_POTENTIAL
+         POTENTIAL_TYPE  PAIR_POTENTIAL
+         &PAIR_POTENTIAL
+           TYPE  DFTD3
+           PARAMETER_FILE_NAME dftd3.dat
+           REFERENCE_FUNCTIONAL PBE
+           CALCULATE_C9_TERM  T
+         &END PAIR_POTENTIAL
+       &END VDW_POTENTIAL
+     &END XC
+     &PRINT
+       &MULLIKEN  OFF
+       &END MULLIKEN
+       &HIRSHFELD  OFF
+       &END HIRSHFELD
+     &END PRINT
+   &END DFT
+   &SUBSYS
+     &KIND Mg
+       BASIS_SET DZVP-MOLOPT-SR-GTH-q2
+       POTENTIAL GTH-PBE-q2
+     &END KIND
+   &END SUBSYS
+ &END FORCE_EVAL
+ 
+ &EXT_RESTART
+  RESTART_FILE_NAME sys-1.restart
+ &END

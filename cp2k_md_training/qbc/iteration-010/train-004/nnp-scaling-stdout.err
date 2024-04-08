@@ -1,0 +1,27 @@
+No protocol specified
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  ERROR: Could not open file: neighbors.out.0000.
+
+[lavoisier:381657] *** Process received signal ***
+[lavoisier:381657] Signal: Aborted (6)
+[lavoisier:381657] Signal code:  (-6)
+[lavoisier:381657] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x43090)[0x7f466e9fd090]
+[lavoisier:381657] [ 1] /lib/x86_64-linux-gnu/libc.so.6(gsignal+0xcb)[0x7f466e9fd00b]
+[lavoisier:381657] [ 2] /lib/x86_64-linux-gnu/libc.so.6(abort+0x12b)[0x7f466e9dc859]
+[lavoisier:381657] [ 3] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xa4ee6)[0x7f466edc6ee6]
+[lavoisier:381657] [ 4] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb6f8c)[0x7f466edd8f8c]
+[lavoisier:381657] [ 5] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb6ff7)[0x7f466edd8ff7]
+[lavoisier:381657] [ 6] /lib/x86_64-linux-gnu/libstdc++.so.6(+0xb7258)[0x7f466edd9258]
+[lavoisier:381657] [ 7] nnp-scaling(+0x13f4c)[0x55bbc4d89f4c]
+[lavoisier:381657] [ 8] nnp-scaling(+0x2fd94)[0x55bbc4da5d94]
+[lavoisier:381657] [ 9] nnp-scaling(+0x231d4)[0x55bbc4d991d4]
+[lavoisier:381657] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf3)[0x7f466e9de083]
+[lavoisier:381657] [11] nnp-scaling(+0x246de)[0x55bbc4d9a6de]
+[lavoisier:381657] *** End of error message ***
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 0 on node lavoisier exited on signal 6 (Aborted).
+--------------------------------------------------------------------------

@@ -1,0 +1,26 @@
+################################################################################
+# Learning curves for energies and forces.
+################################################################################
+# Col  Name             Description
+################################################################################
+# 1    epoch            Current epoch.
+# 2    RMSEpa_Etrain_pu RMSE of training energies per atom (physical units)
+# 3    RMSEpa_Etest_pu  RMSE of test energies per atom (physical units)
+# 4    RMSE_Etrain_pu   RMSE of training energies (physical units)
+# 5    RMSE_Etest_pu    RMSE of test energies (physical units)
+# 6    MAEpa_Etrain_pu  MAE of training energies per atom (physical units)
+# 7    MAEpa_Etest_pu   MAE of test energies per atom (physical units)
+# 8    MAE_Etrain_pu    MAE of training energies (physical units)
+# 9    MAE_Etest_pu     MAE of test energies (physical units)
+# 10   RMSE_Ftrain_pu   RMSE of training forces (physical units)
+# 11   RMSE_Ftest_pu    RMSE of test forces (physical units)
+# 12   MAE_Ftrain_pu    MAE of training forces (physical units)
+# 13   MAE_Ftest_pu     MAE of test forces (physical units)
+######################################################################################################################################################################################################################
+#        1                2                3                4                5                6                7                8                9               10               11               12               13
+#    epoch RMSEpa_Etrain_pu  RMSEpa_Etest_pu   RMSE_Etrain_pu    RMSE_Etest_pu  MAEpa_Etrain_pu   MAEpa_Etest_pu    MAE_Etrain_pu     MAE_Etest_pu   RMSE_Ftrain_pu    RMSE_Ftest_pu    MAE_Ftrain_pu     MAE_Ftest_pu
+######################################################################################################################################################################################################################
+         0   2.97444656E+00   3.03739197E+00   1.90364580E+02   1.94393086E+02   2.95475865E+00   3.01128806E+00   1.89104554E+02   1.92722436E+02   6.57329666E-01   6.62410992E-01   5.00914062E-01   5.17216092E-01
+         1   8.77797969E-04   9.12919955E-04   5.61790700E-02   5.84268771E-02   6.01777610E-04   7.09877646E-04   3.85137671E-02   4.54321694E-02   1.25802108E-02   1.09568363E-02   8.18895293E-03   7.90420343E-03
+         2   1.05258748E-03   9.81192631E-04   6.73655988E-02   6.27963284E-02   8.78423201E-04   7.91614528E-04   5.62190849E-02   5.06633298E-02   7.84225886E-03   7.55134252E-03   5.85013211E-03   5.65909821E-03
+         3   5.00449810E-04   4.32344796E-04   3.20287878E-02   2.76700669E-02   3.30370887E-04   3.27191034E-04   2.11437368E-02   2.09402262E-02   7.22988140E-03   6.87545347E-03   5.42212655E-03   5.09139129E-03

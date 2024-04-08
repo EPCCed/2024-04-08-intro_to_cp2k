@@ -1,0 +1,95 @@
+@SET PATH /home/llei/cp2k/final_model/final_training/model
+
+&GLOBAL
+  PROJECT mg_ml_md
+  PRINT_LEVEL LOW
+  RUN_TYPE MD
+&END GLOBAL
+
+&MOTION
+  &MD
+    STEPS 20000
+    TIMESTEP [fs] 0.5
+    ENSEMBLE NVT
+    TEMPERATURE     1200
+    &THERMOSTAT
+      TYPE CSVR
+      REGION GLOBAL
+      &CSVR
+        TIMECON  50
+      &END CSVR
+    &END THERMOSTAT
+  &END MD
+  &PRINT
+     &TRAJECTORY  SILENT
+       FORMAT  XMOL
+       &EACH
+         MD  10
+       &END EACH
+     &END TRAJECTORY
+     &CELL  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END CELL
+     &VELOCITIES  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END VELOCITIES
+     &FORCES  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END FORCES
+     &RESTART  SILENT
+       &EACH
+         MD  10
+       &END EACH
+     &END RESTART
+  &END PRINT
+&END MOTION
+
+&FORCE_EVAL
+  METHOD  NNP
+  STRESS_TENSOR  ANALYTICAL
+  &NNP
+    NNP_INPUT_FILE_NAME ${PATH}/nnp-000/input.nn
+    SCALE_FILE_NAME  ${PATH}/nnp-000/scaling.data
+    &MODEL
+      WEIGHTS ${PATH}/nnp-000/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-001/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-002/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-003/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-004/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-005/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-006/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-007/weights
+    &END MODEL
+    &PRINT
+      &ENERGIES SILENT
+        &EACH
+          MD 1
+        &END EACH
+      &END ENERGIES
+    &END PRINT
+  &END NNP
+&END FORCE_EVAL
+
+&EXT_RESTART
+RESTART_FILE_NAME mg_ml_md-1.restart
+&END

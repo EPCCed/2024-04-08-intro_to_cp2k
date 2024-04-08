@@ -1,0 +1,18 @@
+################################################################################
+# Kalman filter status report.
+################################################################################
+# Col  Name     Description
+################################################################################
+# 1    epoch    Training epoch.
+# 2    nupdates Number of updates performed.
+# 3    Pdiag    Mean of absolute diagonal values of error covariance matrix P.
+# 4    Poffdiag Mean of absolute off-diagonal values of error covariance matrix P.
+# 5    Pasym    Asymmetry of P, i.e. mean of absolute values of asymmetric part 0.5*(P - P^T).
+# 6    Kmean    Mean of abolute compontents of Kalman gain matrix K.
+# 7    q        Magnitude of process noise (= diagonal entries of Q).
+# 8    eta      Learning rate.
+###########################################################################################################################
+#        1          2                3                4                5                6                7                8
+#    epoch   nupdates            Pdiag         Poffdiag            Pasym            Kmean                q              eta
+###########################################################################################################################
+         0          0   1.00000000E+02   0.00000000E+00   0.00000000E+00   0.00000000E+00   1.00000000E-02   1.00000000E-02

@@ -1,0 +1,1207 @@
+ DBCSR| CPU Multiplication driver                                           XSMM
+ DBCSR| Multrec recursion limit                                              512
+ DBCSR| Multiplication stack size                                           1000
+ DBCSR| Maximum elements for images                                    UNLIMITED
+ DBCSR| Multiplicative factor virtual images                                   1
+ DBCSR| Use multiplication densification                                       T
+ DBCSR| Multiplication size stacks                                             3
+ DBCSR| Use memory pool for CPU allocation                                     F
+ DBCSR| Number of 3D layers                                               SINGLE
+ DBCSR| Use MPI memory allocation                                              F
+ DBCSR| Use RMA algorithm                                                      F
+ DBCSR| Use Communication thread                                               T
+ DBCSR| Communication thread load                                             87
+ DBCSR| MPI: My node id                                                        0
+ DBCSR| MPI: Number of nodes                                                   1
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2024-04-06 23:29:12.804
+ ***** ** ***  *** **   PROGRAM STARTED ON                             lavoisier
+ **    ****   ******    PROGRAM STARTED BY                                  llei
+ ***** **    ** ** **   PROGRAM PROCESS ID                                189751
+  **** **  *******  **  PROGRAM STARTED IN    /home/llei/cp2k/AIMD/equilibration
+
+ CP2K| version string:                 CP2K version 2022.1 (Development Version)
+ CP2K| source code revision number:                                  git:dbdf36f
+ CP2K| cp2kflags: omp libint fftw3 libxc elpa parallel mpi3 scalapack xsmm libvo
+ CP2K|            ri libbqb
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                          Thu 21 Jul 12:53:33 BST 2022
+ CP2K| Program compiled on                                             lavoisier
+ CP2K| Program compiled for                                                local
+ CP2K| Data directory path                                        /opt/cp2k/data
+ CP2K| Input file name                                                   sys.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                        BASIS_MOLOPT
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                                        sys
+ GLOBAL| Run type                                                             MD
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                            ELPA
+ GLOBAL| Minimum number of eigenvectors for ELPA usage                        16
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| FFTs using library dependent lengths                                  T
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                                  LOW
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                             1
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| Stack size for threads created by OpenMP (OMP_STACKSIZE)        default
+ GLOBAL| CPU model name                          AMD EPYC 7742 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            263891476     263891476     263891476     263891476
+ MEMORY| MemFree             237728380     237728380     237728380     237728380
+ MEMORY| Buffers                520304        520304        520304        520304
+ MEMORY| Cached               18829840      18829840      18829840      18829840
+ MEMORY| Slab                  2283060       2283060       2283060       2283060
+ MEMORY| SReclaimable           808628        808628        808628        808628
+ MEMORY| MemLikelyFree       257887152     257887152     257887152     257887152
+
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2022)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   1
+                             - Atoms:                                         64
+                             - Shell sets:                                    64
+                             - Shells:                                       192
+                             - Primitive Cartesian functions:                256
+                             - Cartesian basis functions:                    320
+                             - Spherical basis functions:                    320
+
+  Maximum angular momentum of- Orbital basis functions:                        1
+                             - Local part of the GTH pseudopotential:          0
+                             - Non-local part of the GTH pseudopotential:      2
+
+
+ SCF PARAMETERS         Density guess:                                   RESTART
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-06
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        added MOs                                       100    0
+                        --------------------------------------------------------
+                        Mixing method:                            BROYDEN_MIXING
+                                                charge density mixing in g-space
+                        --------------------------------------------------------
+                        Smear method:                                FERMI_DIRAC
+                        Electronic temperature [K]:                        300.0
+                        Electronic temperature [a.u.]:                  9.50E-04
+                        Accuracy threshold:                             1.00E-10
+                        --------------------------------------------------------
+                        No outer SCF
+
+ MD_PAR| Molecular dynamics protocol (MD input parameters)
+ MD_PAR| Ensemble type                                                     NPT_I
+ MD_PAR| Number of time steps                                              10000
+ MD_PAR| Time step [fs]                                                 0.500000
+ MD_PAR| Temperature [K]                                              600.000000
+ MD_PAR| Temperature tolerance [K]                                      0.000000
+ MD_PAR| Pressure [bar]                                                 1.000000
+ MD_PAR| Barostat time constant [fs]                                  100.000000
+ MD_PAR| Print MD information every                                    1 step(s)
+ MD_PAR| File type   Print frequency [steps]                          File names
+ MD_PAR| Coordinates         10                                    sys-pos-1.xyz
+ MD_PAR| Cell                10                                       sys-1.cell
+ MD_PAR| Velocities          10                                    sys-vel-1.xyz
+ MD_PAR| Energies             1                                       sys-1.ener
+ MD_PAR| Dump                10                                    sys-1.restart
+
+ ROT| Rotational analysis information
+ ROT| Principal axes and moments of inertia [a.u.]
+ ROT|                           1                   2                   3
+ ROT| Eigenvalues      1.54624532837E+08   2.82896832650E+08   3.03489800273E+08
+ ROT|      x             -0.861188020835     -0.127899328004     -0.491931859780
+ ROT|      y              0.500814811395     -0.048178741887     -0.864212551122
+ ROT|      z             -0.086831546442      0.990616258057     -0.105544833204
+ ROT| Number of rotovibrational vectors                                        6
+
+ DOF| Calculation of degrees of freedom
+ DOF| Number of atoms                                                         64
+ DOF| Number of intramolecular constraints                                     0
+ DOF| Number of intermolecular constraints                                     0
+ DOF| Invariants (translations + rotations)                                    3
+ DOF| Degrees of freedom                                                     189
+
+ DOF| Restraints information
+ DOF| Number of intramolecular restraints                                      0
+ DOF| Number of intermolecular restraints                                      0
+
+ THERMOSTAT| Thermostat information for PARTICLES
+ THERMOSTAT| Type of thermostat            Canonical Sampling/Velocity Rescaling
+ THERMOSTAT| CSVR time constant [fs]                                   50.000000
+ THERMOSTAT| Initial kinetic energy                          -0.211091328609E+00
+ THERMOSTAT| End of thermostat information for PARTICLES
+
+ THERMOSTAT| Thermostat information for BAROSTAT
+ THERMOSTAT| Type of thermostat            Canonical Sampling/Velocity Rescaling
+ THERMOSTAT| CSVR time constant [fs]                                    0.009676
+ THERMOSTAT| Initial kinetic energy                           0.325101640517E-01
+ THERMOSTAT| End of thermostat information for BAROSTAT
+
+ MD_VEL| Velocities initialization
+ MD_VEL| Initial temperature [K]                                      503.055744
+ MD_VEL| COM velocity             0.0000000000    -0.0000000000     0.0000000001
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 64
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: initial_guess
+
+ *** WARNING in qs_initial_guess.F:310 :: User requested to restart the    ***
+ *** wavefunction from the file named: sys-RESTART.wfn. This file does not ***
+ *** exist. Please check the existence of the file or change properly the  ***
+ *** value of the keyword WFN_RESTART_FILE_NAME. Calculation continues     ***
+ *** using ATOMIC GUESS.                                                   ***
+
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 NoMix/Diag. 0.10E+00   12.9     0.34154143       -61.1251244883 -6.11E+01
+     2 Broy./Diag. 0.10E+00   21.4     0.00303394       -58.7781504416  2.35E+00
+     3 Broy./Diag. 0.10E+00   21.4     0.04547373       -56.8621197240  1.92E+00
+     4 Broy./Diag. 0.10E+00   21.4     0.00254881       -56.7863500235  7.58E-02
+     5 Broy./Diag. 0.10E+00   21.5     0.01621391       -56.2814268107  5.05E-01
+     6 Broy./Diag. 0.10E+00   21.6     0.00037446       -56.2626846490  1.87E-02
+     7 Broy./Diag. 0.10E+00   21.6     0.00283016       -56.1594762279  1.03E-01
+     8 Broy./Diag. 0.10E+00   21.7     0.00009141       -56.1592397177  2.37E-04
+     9 Broy./Diag. 0.10E+00   21.7     0.00089784       -56.1676005207 -8.36E-03
+    10 Broy./Diag. 0.10E+00   22.0     0.00004177       -56.1687527624 -1.15E-03
+    11 Broy./Diag. 0.10E+00   22.0     0.00026290       -56.1726525214 -3.90E-03
+    12 Broy./Diag. 0.10E+00   21.9     0.00001264       -56.1727197338 -6.72E-05
+    13 Broy./Diag. 0.10E+00   21.9     0.00007673       -56.1731418769 -4.22E-04
+    14 Broy./Diag. 0.10E+00   21.7     0.00000260       -56.1732202877 -7.84E-05
+    15 Broy./Diag. 0.10E+00   21.6     0.00002165       -56.1732435264 -2.32E-05
+    16 Broy./Diag. 0.10E+00   21.6     0.00000171       -56.1731796514  6.39E-05
+    17 Broy./Diag. 0.10E+00   21.6     0.00000557       -56.1730310760  1.49E-04
+    18 Broy./Diag. 0.10E+00   21.7     0.00000100       -56.1730766387 -4.56E-05
+
+  *** SCF run converged in    18 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000094358
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.58296698912174
+  Hartree energy:                                              64.86189838190701
+  Exchange-correlation energy:                                -27.01122236277175
+  Dispersion energy:                                           -0.43743340828225
+  Electronic entropic energy:                                  -0.00247152558547
+  Fermi energy:                                                 0.09399294159264
+
+  Total energy:                                               -56.17307663866246
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:              -56.173115330903933
+
+ MD_INI| MD initialization
+ MD_INI| Potential energy [hartree]                          -0.561731153309E+02
+ MD_INI| Kinetic energy [hartree]                             0.150546499210E+00
+ MD_INI| Temperature [K]                                              503.055744
+ MD_INI| Barostat temperature [K]                                       2.935925
+ MD_INI| Pressure [bar]                                      -1.527012852387E+03
+ MD_INI| Cell volume [bohr^3]                                 1.058574210067E+04
+ MD_INI| Cell volume [ang^3]                                  1.568645118337E+03
+ MD_INI| Cell lengths [bohr]      2.47829339E+01  2.47829339E+01  1.99014739E+01
+ MD_INI| Cell lengths [ang]       1.31145638E+01  1.31145638E+01  1.05314064E+01
+ MD_INI| Cell angles [deg]        9.00000000E+01  9.00000000E+01  1.20000000E+02
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 71
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: ASPC
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 Broy./Diag. 0.10E+00   13.0     0.00246614       -56.1725160102 -5.62E+01
+     2 Broy./Diag. 0.10E+00   21.5     0.00008006       -56.1706584780  1.86E-03
+     3 Broy./Diag. 0.10E+00   21.5     0.00130928       -56.1715368391 -8.78E-04
+     4 Broy./Diag. 0.10E+00   21.6     0.00011622       -56.1721467897 -6.10E-04
+     5 Broy./Diag. 0.10E+00   21.6     0.00032070       -56.1725015536 -3.55E-04
+     6 Broy./Diag. 0.10E+00   21.7     0.00001680       -56.1725118584 -1.03E-05
+     7 Broy./Diag. 0.10E+00   21.7     0.00011022       -56.1726354550 -1.24E-04
+     8 Broy./Diag. 0.10E+00   21.8     0.00000770       -56.1726645602 -2.91E-05
+     9 Broy./Diag. 0.10E+00   21.9     0.00002715       -56.1726742962 -9.74E-06
+    10 Broy./Diag. 0.10E+00   22.1     0.00000281       -56.1726750746 -7.78E-07
+    11 Broy./Diag. 0.10E+00   22.1     0.00001044       -56.1726703461  4.73E-06
+    12 Broy./Diag. 0.10E+00   22.1     0.00000029       -56.1726698848  4.61E-07
+
+  *** SCF run converged in    12 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000094512
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.57882657057952
+  Hartree energy:                                              64.86426968612247
+  Exchange-correlation energy:                                -27.00909708035861
+  Dispersion energy:                                           -0.43736793421005
+  Electronic entropic energy:                                  -0.00248641859056
+  Fermi energy:                                                 0.09393228370018
+
+  Total energy:                                               -56.17266988478400
+ DBCSR| CPU Multiplication driver                                           XSMM
+ DBCSR| Multrec recursion limit                                              512
+ DBCSR| Multiplication stack size                                           1000
+ DBCSR| Maximum elements for images                                    UNLIMITED
+ DBCSR| Multiplicative factor virtual images                                   1
+ DBCSR| Use multiplication densification                                       T
+ DBCSR| Multiplication size stacks                                             3
+ DBCSR| Use memory pool for CPU allocation                                     F
+ DBCSR| Number of 3D layers                                               SINGLE
+ DBCSR| Use MPI memory allocation                                              F
+ DBCSR| Use RMA algorithm                                                      F
+ DBCSR| Use Communication thread                                               T
+ DBCSR| Communication thread load                                             87
+ DBCSR| MPI: My node id                                                        0
+ DBCSR| MPI: Number of nodes                                                  64
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2024-04-06 23:42:43.543
+ ***** ** ***  *** **   PROGRAM STARTED ON                             lavoisier
+ **    ****   ******    PROGRAM STARTED BY                                  llei
+ ***** **    ** ** **   PROGRAM PROCESS ID                                190044
+  **** **  *******  **  PROGRAM STARTED IN    /home/llei/cp2k/AIMD/equilibration
+
+ CP2K| version string:                 CP2K version 2022.1 (Development Version)
+ CP2K| source code revision number:                                  git:dbdf36f
+ CP2K| cp2kflags: omp libint fftw3 libxc elpa parallel mpi3 scalapack xsmm libvo
+ CP2K|            ri libbqb
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                          Thu 21 Jul 12:53:33 BST 2022
+ CP2K| Program compiled on                                             lavoisier
+ CP2K| Program compiled for                                                local
+ CP2K| Data directory path                                        /opt/cp2k/data
+ CP2K| Input file name                                                   sys.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                        BASIS_MOLOPT
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                                        sys
+ GLOBAL| Run type                                                             MD
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                            ELPA
+ GLOBAL| Minimum number of eigenvectors for ELPA usage                        16
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| FFTs using library dependent lengths                                  T
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                                  LOW
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                            64
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| Stack size for threads created by OpenMP (OMP_STACKSIZE)        default
+ GLOBAL| CPU model name                          AMD EPYC 7742 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            263891476     263891476     263891476     263891476
+ MEMORY| MemFree             231776620     231776620     231776620     231776620
+ MEMORY| Buffers                520920        520920        520920        520920
+ MEMORY| Cached               18832724      18832724      18832724      18832724
+ MEMORY| Slab                  2295328       2295328       2295328       2295328
+ MEMORY| SReclaimable           814904        814904        814904        814904
+ MEMORY| MemLikelyFree       251945168     251945168     251945168     251945168
+
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2022)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   1
+                             - Atoms:                                         64
+                             - Shell sets:                                    64
+                             - Shells:                                       192
+                             - Primitive Cartesian functions:                256
+                             - Cartesian basis functions:                    320
+                             - Spherical basis functions:                    320
+
+  Maximum angular momentum of- Orbital basis functions:                        1
+                             - Local part of the GTH pseudopotential:          0
+                             - Non-local part of the GTH pseudopotential:      2
+
+
+ SCF PARAMETERS         Density guess:                                   RESTART
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-06
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        added MOs                                       100    0
+                        --------------------------------------------------------
+                        Mixing method:                            BROYDEN_MIXING
+                                                charge density mixing in g-space
+                        --------------------------------------------------------
+                        Smear method:                                FERMI_DIRAC
+                        Electronic temperature [K]:                        300.0
+                        Electronic temperature [a.u.]:                  9.50E-04
+                        Accuracy threshold:                             1.00E-10
+                        --------------------------------------------------------
+                        No outer SCF
+
+ MD_PAR| Molecular dynamics protocol (MD input parameters)
+ MD_PAR| Ensemble type                                                     NPT_I
+ MD_PAR| Number of time steps                                              10000
+ MD_PAR| Time step [fs]                                                 0.500000
+ MD_PAR| Temperature [K]                                              600.000000
+ MD_PAR| Temperature tolerance [K]                                      0.000000
+ MD_PAR| Pressure [bar]                                                 1.000000
+ MD_PAR| Barostat time constant [fs]                                  100.000000
+ MD_PAR| Print MD information every                                    1 step(s)
+ MD_PAR| File type   Print frequency [steps]                          File names
+ MD_PAR| Coordinates         10                                    sys-pos-1.xyz
+ MD_PAR| Cell                10                                       sys-1.cell
+ MD_PAR| Velocities          10                                    sys-vel-1.xyz
+ MD_PAR| Energies             1                                       sys-1.ener
+ MD_PAR| Dump                10                                    sys-1.restart
+
+ ROT| Rotational analysis information
+ ROT| Principal axes and moments of inertia [a.u.]
+ ROT|                           1                   2                   3
+ ROT| Eigenvalues      1.54624532837E+08   2.82896832650E+08   3.03489800273E+08
+ ROT|      x             -0.861188020835     -0.127899328004     -0.491931859780
+ ROT|      y              0.500814811395     -0.048178741887     -0.864212551122
+ ROT|      z             -0.086831546442      0.990616258057     -0.105544833204
+ ROT| Number of rotovibrational vectors                                        6
+
+ DOF| Calculation of degrees of freedom
+ DOF| Number of atoms                                                         64
+ DOF| Number of intramolecular constraints                                     0
+ DOF| Number of intermolecular constraints                                     0
+ DOF| Invariants (translations + rotations)                                    3
+ DOF| Degrees of freedom                                                     189
+
+ DOF| Restraints information
+ DOF| Number of intramolecular restraints                                      0
+ DOF| Number of intermolecular restraints                                      0
+
+ THERMOSTAT| Thermostat information for PARTICLES
+ THERMOSTAT| Type of thermostat            Canonical Sampling/Velocity Rescaling
+ THERMOSTAT| CSVR time constant [fs]                                   50.000000
+ THERMOSTAT| Initial kinetic energy                          -0.211091328609E+00
+ THERMOSTAT| End of thermostat information for PARTICLES
+
+ THERMOSTAT| Thermostat information for BAROSTAT
+ THERMOSTAT| Type of thermostat            Canonical Sampling/Velocity Rescaling
+ THERMOSTAT| CSVR time constant [fs]                                    0.009676
+ THERMOSTAT| Initial kinetic energy                           0.325101640517E-01
+ THERMOSTAT| End of thermostat information for BAROSTAT
+
+ MD_VEL| Velocities initialization
+ MD_VEL| Initial temperature [K]                                      503.055744
+ MD_VEL| COM velocity             0.0000000000    -0.0000000000     0.0000000001
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 64
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: initial_guess
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 NoMix/Diag. 0.10E+00    0.7     0.00247714       -56.1704751955 -5.62E+01
+     2 Broy./Diag. 0.10E+00    0.7     0.00007963       -56.1750275234 -4.55E-03
+     3 Broy./Diag. 0.10E+00    0.8     0.00130453       -56.1741622682  8.65E-04
+     4 Broy./Diag. 0.10E+00    1.2     0.00011782       -56.1736043051  5.58E-04
+ DBCSR| CPU Multiplication driver                                           XSMM
+ DBCSR| Multrec recursion limit                                              512
+ DBCSR| Multiplication stack size                                           1000
+ DBCSR| Maximum elements for images                                    UNLIMITED
+ DBCSR| Multiplicative factor virtual images                                   1
+ DBCSR| Use multiplication densification                                       T
+ DBCSR| Multiplication size stacks                                             3
+ DBCSR| Use memory pool for CPU allocation                                     F
+ DBCSR| Number of 3D layers                                               SINGLE
+ DBCSR| Use MPI memory allocation                                              F
+ DBCSR| Use RMA algorithm                                                      F
+ DBCSR| Use Communication thread                                               T
+ DBCSR| Communication thread load                                             87
+ DBCSR| MPI: My node id                                                        0
+ DBCSR| MPI: Number of nodes                                                  64
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2024-04-06 23:42:55.996
+ ***** ** ***  *** **   PROGRAM STARTED ON                             lavoisier
+ **    ****   ******    PROGRAM STARTED BY                                  llei
+ ***** **    ** ** **   PROGRAM PROCESS ID                                191206
+  **** **  *******  **  PROGRAM STARTED IN    /home/llei/cp2k/AIMD/equilibration
+
+ CP2K| version string:                 CP2K version 2022.1 (Development Version)
+ CP2K| source code revision number:                                  git:dbdf36f
+ CP2K| cp2kflags: omp libint fftw3 libxc elpa parallel mpi3 scalapack xsmm libvo
+ CP2K|            ri libbqb
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                          Thu 21 Jul 12:53:33 BST 2022
+ CP2K| Program compiled on                                             lavoisier
+ CP2K| Program compiled for                                                local
+ CP2K| Data directory path                                        /opt/cp2k/data
+ CP2K| Input file name                                                   sys.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                        BASIS_MOLOPT
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                                        sys
+ GLOBAL| Run type                                                             MD
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                            ELPA
+ GLOBAL| Minimum number of eigenvectors for ELPA usage                        16
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| FFTs using library dependent lengths                                  T
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                                  LOW
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                            64
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| Stack size for threads created by OpenMP (OMP_STACKSIZE)        default
+ GLOBAL| CPU model name                          AMD EPYC 7742 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            263891476     263891476     263891476     263891476
+ MEMORY| MemFree             231754476     231754476     231754476     231754476
+ MEMORY| Buffers                520964        520964        520964        520964
+ MEMORY| Cached               18854456      18854456      18854456      18854456
+ MEMORY| Slab                  2291144       2291144       2291144       2291144
+ MEMORY| SReclaimable           813132        813132        813132        813132
+ MEMORY| MemLikelyFree       251943028     251943028     251943028     251943028
+
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2022)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   1
+                             - Atoms:                                         64
+                             - Shell sets:                                    64
+                             - Shells:                                       192
+                             - Primitive Cartesian functions:                256
+                             - Cartesian basis functions:                    320
+                             - Spherical basis functions:                    320
+
+  Maximum angular momentum of- Orbital basis functions:                        1
+                             - Local part of the GTH pseudopotential:          0
+                             - Non-local part of the GTH pseudopotential:      2
+
+
+ SCF PARAMETERS         Density guess:                                   RESTART
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-06
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        added MOs                                       100    0
+                        --------------------------------------------------------
+                        Mixing method:                            BROYDEN_MIXING
+                                                charge density mixing in g-space
+                        --------------------------------------------------------
+                        Smear method:                                FERMI_DIRAC
+                        Electronic temperature [K]:                        300.0
+                        Electronic temperature [a.u.]:                  9.50E-04
+                        Accuracy threshold:                             1.00E-10
+                        --------------------------------------------------------
+                        No outer SCF
+
+ MD_PAR| Molecular dynamics protocol (MD input parameters)
+ MD_PAR| Ensemble type                                                     NPT_I
+ MD_PAR| Number of time steps                                              10000
+ MD_PAR| Time step [fs]                                                 0.500000
+ MD_PAR| Temperature [K]                                              600.000000
+ MD_PAR| Temperature tolerance [K]                                      0.000000
+ MD_PAR| Pressure [bar]                                                 1.000000
+ MD_PAR| Barostat time constant [fs]                                  100.000000
+ MD_PAR| Print MD information every                                    1 step(s)
+ MD_PAR| File type   Print frequency [steps]                          File names
+ MD_PAR| Coordinates         10                                    sys-pos-1.xyz
+ MD_PAR| Cell                10                                       sys-1.cell
+ MD_PAR| Velocities          10                                    sys-vel-1.xyz
+ MD_PAR| Energies             1                                       sys-1.ener
+ MD_PAR| Dump                10                                    sys-1.restart
+
+ ROT| Rotational analysis information
+ ROT| Principal axes and moments of inertia [a.u.]
+ ROT|                           1                   2                   3
+ ROT| Eigenvalues      1.54624532837E+08   2.82896832650E+08   3.03489800273E+08
+ ROT|      x             -0.861188020835     -0.127899328004     -0.491931859780
+ ROT|      y              0.500814811395     -0.048178741887     -0.864212551122
+ ROT|      z             -0.086831546442      0.990616258057     -0.105544833204
+ ROT| Number of rotovibrational vectors                                        6
+
+ DOF| Calculation of degrees of freedom
+ DOF| Number of atoms                                                         64
+ DOF| Number of intramolecular constraints                                     0
+ DOF| Number of intermolecular constraints                                     0
+ DOF| Invariants (translations + rotations)                                    3
+ DOF| Degrees of freedom                                                     189
+
+ DOF| Restraints information
+ DOF| Number of intramolecular restraints                                      0
+ DOF| Number of intermolecular restraints                                      0
+
+ THERMOSTAT| Thermostat information for PARTICLES
+ THERMOSTAT| Type of thermostat            Canonical Sampling/Velocity Rescaling
+ THERMOSTAT| CSVR time constant [fs]                                   50.000000
+ THERMOSTAT| Initial kinetic energy                          -0.211091328609E+00
+ THERMOSTAT| End of thermostat information for PARTICLES
+
+ THERMOSTAT| Thermostat information for BAROSTAT
+ THERMOSTAT| Type of thermostat            Canonical Sampling/Velocity Rescaling
+ THERMOSTAT| CSVR time constant [fs]                                    0.009676
+ THERMOSTAT| Initial kinetic energy                           0.325101640517E-01
+ THERMOSTAT| End of thermostat information for BAROSTAT
+
+ MD_VEL| Velocities initialization
+ MD_VEL| Initial temperature [K]                                      503.055744
+ MD_VEL| COM velocity             0.0000000000    -0.0000000000     0.0000000001
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 64
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: initial_guess
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 NoMix/Diag. 0.10E+00    0.7     0.00247714       -56.1704751955 -5.62E+01
+     2 Broy./Diag. 0.10E+00    0.8     0.00007963       -56.1750275234 -4.55E-03
+     3 Broy./Diag. 0.10E+00    0.8     0.00130453       -56.1741622682  8.65E-04
+     4 Broy./Diag. 0.10E+00    1.0     0.00011782       -56.1736043051  5.58E-04
+     5 Broy./Diag. 0.10E+00    0.9     0.00032547       -56.1732566895  3.48E-04
+     6 Broy./Diag. 0.10E+00    0.9     0.00001666       -56.1732584521 -1.76E-06
+     7 Broy./Diag. 0.10E+00    1.1     0.00010920       -56.1731435806  1.15E-04
+     8 Broy./Diag. 0.10E+00    1.2     0.00000747       -56.1731163932  2.72E-05
+     9 Broy./Diag. 0.10E+00    1.1     0.00002655       -56.1731097546  6.64E-06
+    10 Broy./Diag. 0.10E+00    1.0     0.00000293       -56.1731089801  7.74E-07
+    11 Broy./Diag. 0.10E+00    1.4     0.00001072       -56.1731147352 -5.76E-06
+    12 Broy./Diag. 0.10E+00    1.3     0.00000028       -56.1731152335 -4.98E-07
+
+  *** SCF run converged in    12 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000094358
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.58297020511363
+  Hartree energy:                                              64.86186219354781
+  Exchange-correlation energy:                                -27.01122803610894
+  Dispersion energy:                                           -0.43743340828224
+  Electronic entropic energy:                                  -0.00247147563760
+  Fermi energy:                                                 0.09399299168912
+
+  Total energy:                                               -56.17311523350752
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:              -56.173115331222846
+
+ MD_INI| MD initialization
+ MD_INI| Potential energy [hartree]                          -0.561731153312E+02
+ MD_INI| Kinetic energy [hartree]                             0.150546499210E+00
+ MD_INI| Temperature [K]                                              503.055744
+ MD_INI| Barostat temperature [K]                                       2.935925
+ MD_INI| Pressure [bar]                                      -1.527081662931E+03
+ MD_INI| Cell volume [bohr^3]                                 1.058574210067E+04
+ MD_INI| Cell volume [ang^3]                                  1.568645118337E+03
+ MD_INI| Cell lengths [bohr]      2.47829339E+01  2.47829339E+01  1.99014739E+01
+ MD_INI| Cell lengths [ang]       1.31145638E+01  1.31145638E+01  1.05314064E+01
+ MD_INI| Cell angles [deg]        9.00000000E+01  9.00000000E+01  1.20000000E+02
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 71
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: ASPC
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 Broy./Diag. 0.10E+00    0.6     0.00246898       -56.1725160057 -5.62E+01
+     2 Broy./Diag. 0.10E+00    0.8     0.00008006       -56.1706652044  1.85E-03
+     3 Broy./Diag. 0.10E+00    0.7     0.00130401       -56.1715420066 -8.77E-04
+     4 Broy./Diag. 0.10E+00    0.8     0.00011762       -56.1721532017 -6.11E-04
+     5 Broy./Diag. 0.10E+00    1.0     0.00032327       -56.1725061543 -3.53E-04
+     6 Broy./Diag. 0.10E+00    1.0     0.00001644       -56.1725121808 -6.03E-06
+     7 Broy./Diag. 0.10E+00    0.9     0.00010955       -56.1726352041 -1.23E-04
+     8 Broy./Diag. 0.10E+00    1.0     0.00000753       -56.1726650911 -2.99E-05
+     9 Broy./Diag. 0.10E+00    1.1     0.00002687       -56.1726744066 -9.32E-06
+    10 Broy./Diag. 0.10E+00    1.3     0.00000278       -56.1726752523 -8.46E-07
+    11 Broy./Diag. 0.10E+00    1.2     0.00001027       -56.1726704779  4.77E-06
+    12 Broy./Diag. 0.10E+00    1.2     0.00000030       -56.1726699683  5.10E-07
+
+  *** SCF run converged in    12 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000094512
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.57882655642579
+  Hartree energy:                                              64.86426961724104
+  Exchange-correlation energy:                                -27.00909708099631
+  Dispersion energy:                                           -0.43736793443042
+  Electronic entropic energy:                                  -0.00248641831966
+  Fermi energy:                                                 0.09393228359094
+
+  Total energy:                                               -56.17266996834061
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:              -56.172669652186720
+
+ MD| ***************************************************************************
+ MD| Step number                                                            2001
+ MD| Time [fs]                                                       1000.500000
+ MD| Conserved quantity [hartree]                            -0.562011101738E+02
+ MD| ---------------------------------------------------------------------------
+ MD|                                          Instantaneous             Averages
+ MD| CPU time per MD step [s]                     31.642095            10.939430
+ MD| Energy drift per atom [K]          -0.163006085660E+01  -0.133204327069E+01
+ MD| Potential energy [hartree]         -0.561726696522E+02  -0.561633954609E+02
+ MD| Kinetic energy [hartree]            0.149330730671E+00   0.179920706675E+00
+ MD| Temperature [K]                             498.993216           601.210559
+ MD| Pressure [bar]                     -1.603402402231E+03   2.983592371909E+03
+ MD| Barostat temperature [K]            2.385043838445E+03   6.134188528362E+02
+ MD| Cell volume [bohr^3]                1.058874469176E+04   1.048896877487E+04
+ MD| Cell volume [ang^3]                 1.569090056425E+03   1.554304791163E+03
+ MD| ---------------------------------------------------------------------------
+ MD| Cell lengths [bohr]          2.47852769E+01  2.47852769E+01  1.99033553E+01
+ MD| Cell lengths [ang]           1.31158036E+01  1.31158036E+01  1.05324020E+01
+ MD| Average cell lengths [bohr]  2.47058936E+01  2.47058936E+01  1.98396081E+01
+ MD| Average cell lengths [ang]   1.30737958E+01  1.30737958E+01  1.04986685E+01
+ MD| ***************************************************************************
+ MD| Estimated peak process memory after this step [MiB]                     256
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 71
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: ASPC
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 Broy./Diag. 0.10E+00    0.6     0.00339429       -56.1723709913 -5.62E+01
+     2 Broy./Diag. 0.10E+00    0.8     0.00008613       -56.1774726047 -5.10E-03
+     3 Broy./Diag. 0.10E+00    0.9     0.00153070       -56.1734635170  4.01E-03
+     4 Broy./Diag. 0.10E+00    0.8     0.00008870       -56.1733543318  1.09E-04
+     5 Broy./Diag. 0.10E+00    0.9     0.00027118       -56.1723310600  1.02E-03
+     6 Broy./Diag. 0.10E+00    1.0     0.00002220       -56.1723164023  1.47E-05
+     7 Broy./Diag. 0.10E+00    1.1     0.00011422       -56.1723265337 -1.01E-05
+     8 Broy./Diag. 0.10E+00    1.0     0.00000577       -56.1723794862 -5.30E-05
+     9 Broy./Diag. 0.10E+00    1.0     0.00002386       -56.1724735776 -9.41E-05
+    10 Broy./Diag. 0.10E+00    1.3     0.00000397       -56.1724904994 -1.69E-05
+    11 Broy./Diag. 0.10E+00    1.2     0.00001246       -56.1725405378 -5.00E-05
+    12 Broy./Diag. 0.10E+00    1.3     0.00000035       -56.1725401295  4.08E-07
+
+  *** SCF run converged in    12 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000097657
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.61394386062303
+  Hartree energy:                                              64.84466453269594
+  Exchange-correlation energy:                                -27.02393707225433
+  Dispersion energy:                                           -0.43790734759419
+  Electronic entropic energy:                                  -0.00248939431361
+  Fermi energy:                                                 0.09427230379819
+
+  Total energy:                                               -56.17254012954551
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:              -56.172533709411269
+
+ MD| ***************************************************************************
+ MD| Step number                                                            2002
+ MD| Time [fs]                                                       1001.000000
+ MD| Conserved quantity [hartree]                            -0.562011023877E+02
+ MD| ---------------------------------------------------------------------------
+ MD|                                          Instantaneous             Averages
+ MD| CPU time per MD step [s]                     15.851336            10.941884
+ MD| Energy drift per atom [K]          -0.159164454498E+01  -0.133217294166E+01
+ MD| Potential energy [hartree]         -0.561725337094E+02  -0.561634000255E+02
+ MD| Kinetic energy [hartree]            0.151882599536E+00   0.179906701626E+00
+ MD| Temperature [K]                             507.520364           601.163760
+ MD| Pressure [bar]                     -9.869939113042E+02   2.981609062078E+03
+ MD| Barostat temperature [K]            1.570527321065E+02   6.131908977310E+02
+ MD| Cell volume [bohr^3]                1.056973296371E+04   1.048900911662E+04
+ MD| Cell volume [ang^3]                 1.566272809026E+03   1.554310769194E+03
+ MD| ---------------------------------------------------------------------------
+ MD| Cell lengths [bohr]          2.47704343E+01  2.47704343E+01  1.98914363E+01
+ MD| Cell lengths [ang]           1.31079493E+01  1.31079493E+01  1.05260947E+01
+ MD| Average cell lengths [bohr]  2.47059259E+01  2.47059259E+01  1.98396340E+01
+ MD| Average cell lengths [ang]   1.30738129E+01  1.30738129E+01  1.04986822E+01
+ MD| ***************************************************************************
+ MD| Estimated peak process memory after this step [MiB]                     261
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 71
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: ASPC
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 Broy./Diag. 0.10E+00    0.6     0.00249068       -56.1720979114 -5.62E+01
+     2 Broy./Diag. 0.10E+00    0.8     0.00008863       -56.1723258746 -2.28E-04
+     3 Broy./Diag. 0.10E+00    0.7     0.00154476       -56.1723207593  5.12E-06
+     4 Broy./Diag. 0.10E+00    0.9     0.00010866       -56.1724999617 -1.79E-04
+     5 Broy./Diag. 0.10E+00    0.9     0.00031419       -56.1722947656  2.05E-04
+     6 Broy./Diag. 0.10E+00    1.0     0.00002050       -56.1722413982  5.34E-05
+     7 Broy./Diag. 0.10E+00    0.9     0.00010601       -56.1721607024  8.07E-05
+     8 Broy./Diag. 0.10E+00    1.3     0.00000643       -56.1721984446 -3.77E-05
+     9 Broy./Diag. 0.10E+00    1.2     0.00002467       -56.1722268811 -2.84E-05
+    10 Broy./Diag. 0.10E+00    1.5     0.00000346       -56.1722348418 -7.96E-06
+    11 Broy./Diag. 0.10E+00    1.3     0.00001175       -56.1722586449 -2.38E-05
+    12 Broy./Diag. 0.10E+00    1.3     0.00000035       -56.1722573262  1.32E-06
+
+  *** SCF run converged in    12 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000099323
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.62983708034567
+  Hartree energy:                                              64.83584180559816
+  Exchange-correlation energy:                                -27.03046965049601
+  Dispersion energy:                                           -0.43815221133972
+  Electronic entropic energy:                                  -0.00249964162114
+  Fermi energy:                                                 0.09441679348268
+
+  Total energy:                                               -56.17225732624680
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:              -56.172251985521406
+
+ MD| ***************************************************************************
+ MD| Step number                                                            2003
+ MD| Time [fs]                                                       1001.500000
+ MD| Conserved quantity [hartree]                            -0.562010990323E+02
+ MD| ---------------------------------------------------------------------------
+ MD|                                          Instantaneous             Averages
+ MD| CPU time per MD step [s]                     16.419425            10.944618
+ MD| Energy drift per atom [K]          -0.157508912316E+01  -0.133229421783E+01
+ MD| Potential energy [hartree]         -0.561722519855E+02  -0.561634044448E+02
+ MD| Kinetic energy [hartree]            0.156258711270E+00   0.179894895340E+00
+ MD| Temperature [K]                             522.143275           601.124309
+ MD| Pressure [bar]                     -6.410117283092E+02   2.979800464579E+03
+ MD| Barostat temperature [K]            4.286986203667E+02   6.130987897542E+02
+ MD| Cell volume [bohr^3]                1.056149554140E+04   1.048904530555E+04
+ MD| Cell volume [ang^3]                 1.565052148995E+03   1.554316131840E+03
+ MD| ---------------------------------------------------------------------------
+ MD| Cell lengths [bohr]          2.47639977E+01  2.47639977E+01  1.98862675E+01
+ MD| Cell lengths [ang]           1.31045432E+01  1.31045432E+01  1.05233595E+01
+ MD| Average cell lengths [bohr]  2.47059549E+01  2.47059549E+01  1.98396573E+01
+ MD| Average cell lengths [ang]   1.30738282E+01  1.30738282E+01  1.04986945E+01
+ MD| ***************************************************************************
+ MD| Estimated peak process memory after this step [MiB]                     262
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 71
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: ASPC
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 Broy./Diag. 0.10E+00    0.7     0.00353223       -56.1715652398 -5.62E+01
+     2 Broy./Diag. 0.10E+00    0.9     0.00008980       -56.1668231557  4.74E-03
+     3 Broy./Diag. 0.10E+00    0.8     0.00147790       -56.1696074594 -2.78E-03
+     4 Broy./Diag. 0.10E+00    0.9     0.00015155       -56.1705814882 -9.74E-04
+     5 Broy./Diag. 0.10E+00    0.9     0.00038992       -56.1715695793 -9.88E-04
+     6 Broy./Diag. 0.10E+00    1.0     0.00001671       -56.1715940550 -2.45E-05
+     7 Broy./Diag. 0.10E+00    1.0     0.00009767       -56.1717740290 -1.80E-04
+     8 Broy./Diag. 0.10E+00    1.2     0.00000811       -56.1717952472 -2.12E-05
+     9 Broy./Diag. 0.10E+00    1.1     0.00002685       -56.1717672127  2.80E-05
+    10 Broy./Diag. 0.10E+00    1.5     0.00000174       -56.1717601115  7.10E-06
+    11 Broy./Diag. 0.10E+00    1.1     0.00000743       -56.1717208897  3.92E-05
+    12 Broy./Diag. 0.10E+00    1.1     0.00000033       -56.1717197852  1.10E-06
+
+  *** SCF run converged in    12 steps ***
+
+
+  Electronic density on regular grids:       -128.0000000000       -0.0000000000
+  Core density on regular grids:              127.9999999989       -0.0000000011
+  Total charge density on r-space grids:       -0.0000000012
+  Total charge density g-space grids:          -0.0000000012
+
+  Overlap energy of the core charge distribution:               0.00000000097957
+  Self energy of the core charge distribution:               -125.16681471116594
+  Core Hamiltonian energy:                                     31.60769221744162
+  Hartree energy:                                              64.84832641163004
+  Exchange-correlation energy:                                -27.02059040407150
+  Dispersion energy:                                           -0.43780977567856
+  Electronic entropic energy:                                  -0.00252352607274
+  Fermi energy:                                                 0.09417376092263
+
+  Total energy:                                               -56.17171978522909
+ DBCSR| CPU Multiplication driver                                           XSMM
+ DBCSR| Multrec recursion limit                                              512
+ DBCSR| Multiplication stack size                                           1000
+ DBCSR| Maximum elements for images                                    UNLIMITED
+ DBCSR| Multiplicative factor virtual images                                   1
+ DBCSR| Use multiplication densification                                       T
+ DBCSR| Multiplication size stacks                                             3
+ DBCSR| Use memory pool for CPU allocation                                     F
+ DBCSR| Number of 3D layers                                               SINGLE
+ DBCSR| Use MPI memory allocation                                              F
+ DBCSR| Use RMA algorithm                                                      F
+ DBCSR| Use Communication thread                                               T
+ DBCSR| Communication thread load                                             87
+ DBCSR| MPI: My node id                                                        0
+ DBCSR| MPI: Number of nodes                                                 128
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2024-04-06 23:45:57.703
+ ***** ** ***  *** **   PROGRAM STARTED ON                             lavoisier
+ **    ****   ******    PROGRAM STARTED BY                                  llei
+ ***** **    ** ** **   PROGRAM PROCESS ID                                192645
+  **** **  *******  **  PROGRAM STARTED IN    /home/llei/cp2k/AIMD/equilibration
+
+ CP2K| version string:                 CP2K version 2022.1 (Development Version)
+ CP2K| source code revision number:                                  git:dbdf36f
+ CP2K| cp2kflags: omp libint fftw3 libxc elpa parallel mpi3 scalapack xsmm libvo
+ CP2K|            ri libbqb
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                          Thu 21 Jul 12:53:33 BST 2022
+ CP2K| Program compiled on                                             lavoisier
+ CP2K| Program compiled for                                                local
+ CP2K| Data directory path                                        /opt/cp2k/data
+ CP2K| Input file name                                                   sys.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                        BASIS_MOLOPT
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                             mg.xyz
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                                        sys
+ GLOBAL| Run type                                                             MD
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                            ELPA
+ GLOBAL| Minimum number of eigenvectors for ELPA usage                        16
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| FFTs using library dependent lengths                                  T
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                                  LOW
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                           128
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| Stack size for threads created by OpenMP (OMP_STACKSIZE)        default
+ GLOBAL| CPU model name                          AMD EPYC 7742 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            263891476     263891476     263891476     263891476
+ MEMORY| MemFree             225577668     225577668     225577668     225577668
+ MEMORY| Buffers                521484        521484        521484        521484
+ MEMORY| Cached               18854120      18854120      18854120      18854120
+ MEMORY| Slab                  2321512       2321512       2321512       2321512
+ MEMORY| SReclaimable           838532        838532        838532        838532
+ MEMORY| MemLikelyFree       245791804     245791804     245791804     245791804
+
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2022)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   1
+                             - Atoms:                                         64
+                             - Shell sets:                                    64
+                             - Shells:                                       192
+                             - Primitive Cartesian functions:                256
+                             - Cartesian basis functions:                    320
+                             - Spherical basis functions:                    320
+
+  Maximum angular momentum of- Orbital basis functions:                        1
+                             - Local part of the GTH pseudopotential:          0
+                             - Non-local part of the GTH pseudopotential:      2
+
+
+ SCF PARAMETERS         Density guess:                                   RESTART
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-06
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        added MOs                                       100    0
+                        --------------------------------------------------------
+                        Mixing method:                            BROYDEN_MIXING
+                                                charge density mixing in g-space
+                        --------------------------------------------------------
+                        Smear method:                                FERMI_DIRAC
+                        Electronic temperature [K]:                        300.0
+                        Electronic temperature [a.u.]:                  9.50E-04
+                        Accuracy threshold:                             1.00E-10
+                        --------------------------------------------------------
+                        No outer SCF
+
+ MD_PAR| Molecular dynamics protocol (MD input parameters)
+ MD_PAR| Ensemble type                                                       NVE
+ MD_PAR| Number of time steps                                               1000
+ MD_PAR| Time step [fs]                                                 0.500000
+ MD_PAR| Temperature [K]                                              600.000000
+ MD_PAR| Temperature tolerance [K]                                     10.000000
+ MD_PAR| Print MD information every                                    1 step(s)
+ MD_PAR| File type   Print frequency [steps]                          File names
+ MD_PAR| Coordinates         10                                    sys-pos-1.xyz
+ MD_PAR| Velocities          10                                    sys-vel-1.xyz
+ MD_PAR| Energies             1                                       sys-1.ener
+ MD_PAR| Dump                10                                    sys-1.restart
+
+ *** WARNING in motion/simpar_methods.F:239 :: A temperature tolerance ***
+ *** (TEMP_TOL) is used during the MD. Due to the velocity rescaling   ***
+ *** algorithm jumps may appear in the conserved quantity.             ***
+
+
+ ROT| Rotational analysis information
+ ROT| Principal axes and moments of inertia [a.u.]
+ ROT|                           1                   2                   3
+ ROT| Eigenvalues      1.47583115027E+08   2.69779718541E+08   2.87405116420E+08
+ ROT|      x             -0.861761958669     -0.085827305563     -0.500000000210
+ ROT|      y              0.497538496652      0.049552442514     -0.866025403663
+ ROT|      z             -0.099104848213      0.995076996549      0.000000021337
+ ROT| Number of rotovibrational vectors                                        6
+
+ DOF| Calculation of degrees of freedom
+ DOF| Number of atoms                                                         64
+ DOF| Number of intramolecular constraints                                     0
+ DOF| Number of intermolecular constraints                                     0
+ DOF| Invariants (translations + rotations)                                    3
+ DOF| Degrees of freedom                                                     189
+
+ DOF| Restraints information
+ DOF| Number of intramolecular restraints                                      0
+ DOF| Number of intermolecular restraints                                      0
+
+ MD_VEL| Velocities initialization
+ MD_VEL| Initial temperature [K]                                      600.000000
+ MD_VEL| COM velocity             0.0000000000    -0.0000000000     0.0000000000
+
+ Number of electrons:                                                        128
+ Number of occupied orbitals:                                                 64
+ Number of molecular orbitals:                                               164
+
+ Number of orbital functions:                                                320
+ Number of independent orbital functions:                                    320
+
+ Extrapolation method: initial_guess
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------

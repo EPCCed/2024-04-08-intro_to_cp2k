@@ -1,0 +1,289 @@
+
+*** SETUP: MPI ****************************************************************
+
+Number of processors: 64
+Process 17 of 64 (rank 16): lavoisier
+*******************************************************************************
+
+*******************************************************************************
+
+WELCOME TO n²p², A SOFTWARE PACKAGE FOR NEURAL NETWORK POTENTIALS!
+------------------------------------------------------------------
+
+n²p² version  (from git): v2.2.0-4-g539576bb
+             (version.h): v2.2.0
+------------------------------------------------------------
+Git branch              : master
+Git revision            : 539576bbe3d2152ad8fcb8ec4fcd7934fd1a2472
+Compile date/time       : Mar 25 2024 10:57:18
+------------------------------------------------------------
+
+Features/Flags:
+------------------------------------------------------------
+Symmetry function groups     : enabled
+Symmetry function cache      : enabled
+Timing function available    : available
+Asymmetric polynomial SFs    : available
+SF low neighbor number check : enabled
+SF derivative memory layout  : reduced
+MPI explicitly disabled      : no
+------------------------------------------------------------
+
+Please cite the following papers when publishing results obtained with n²p²:
+-------------------------------------------------------------------------------
+ * General citation for n²p² and the LAMMPS interface:
+
+ Singraber, A.; Behler, J.; Dellago, C.
+ Library-Based LAMMPS Implementation of High-Dimensional
+ Neural Network Potentials.
+ J. Chem. Theory Comput. 2019 15 (3), 1827–1840.
+ https://doi.org/10.1021/acs.jctc.8b00770
+-------------------------------------------------------------------------------
+ * Additionally, if you use the NNP training features of n²p²:
+
+ Singraber, A.; Morawietz, T.; Behler, J.; Dellago, C.
+ Parallel Multistream Training of High-Dimensional Neural
+ Network Potentials.
+ J. Chem. Theory Comput. 2019, 15 (5), 3075–3092.
+ https://doi.org/10.1021/acs.jctc.8b01092
+-------------------------------------------------------------------------------
+ * Additionally, if polynomial symmetry functions are used:
+
+ Bircher, M. P.; Singraber, A.; Dellago, C.
+ Improved Description of Atomic Environments Using Low-Cost
+ Polynomial Functions with Compact Support.
+ arXiv:2010.14414 [cond-mat, physics:physics] 2020.
+ https://arxiv.org/abs/2010.14414
+*******************************************************************************
+
+*** SETUP: SETTINGS FILE ******************************************************
+
+Settings file name: input.nn
+Read 99 lines.
+Found 57 lines with keywords.
+This settings file defines a short-range only NNP.
+*******************************************************************************
+
+*** SETUP: NORMALIZATION ******************************************************
+
+Data set normalization is not used.
+*******************************************************************************
+
+*** SETUP: ELEMENT MAP ********************************************************
+
+Number of element strings found: 1
+Element  0: Mg ( 12)
+*******************************************************************************
+
+*** SETUP: ELEMENTS ***********************************************************
+
+Number of elements is consistent: 1
+Atomic energy offsets per element:
+Element  0:   0.00000000E+00
+Energy offsets are automatically subtracted from reference energies.
+*******************************************************************************
+
+*** SETUP: CUTOFF FUNCTIONS ***************************************************
+
+Parameter alpha for inner cutoff: 0.000000
+Inner cutoff = Symmetry function cutoff * alpha
+Equal cutoff function type for all symmetry functions:
+CutoffFunction::CT_TANHU (2)
+f(r) = tanh^3(1 - r/rc)
+*******************************************************************************
+
+*** SETUP: SYMMETRY FUNCTIONS *************************************************
+
+Abbreviations:
+--------------
+ind .... Symmetry function index.
+ec ..... Central atom element.
+tp ..... Symmetry function type.
+sbtp ... Symmetry function subtype (e.g. cutoff type).
+e1 ..... Neighbor 1 element.
+e2 ..... Neighbor 2 element.
+eta .... Gaussian width eta.
+rs/rl... Shift distance of Gaussian or left cutoff radius for polynomial.
+angl.... Left cutoff angle for polynomial.
+angr.... Right cutoff angle for polynomial.
+la ..... Angle prefactor lambda.
+zeta ... Angle term exponent zeta.
+rc ..... Cutoff radius / right cutoff radius for polynomial.
+a ...... Free parameter alpha (e.g. cutoff alpha).
+ln ..... Line number in settings file.
+
+Short range atomic symmetry functions element Mg :
+-------------------------------------------------------------------------------------------------
+ ind ec tp sbtp e1 e2       eta      rs/rl         rc   angl   angr la zeta    a    ln
+-------------------------------------------------------------------------------------------------
+   1 Mg  2  ct2 Mg    3.078E-01  2.646E-01  1.200E+01                       0.00    78
+   2 Mg  2  ct2 Mg    3.078E-01  1.539E+00  1.200E+01                       0.00    79
+   3 Mg  2  ct2 Mg    3.078E-01  2.814E+00  1.200E+01                       0.00    80
+   4 Mg  2  ct2 Mg    3.078E-01  4.088E+00  1.200E+01                       0.00    81
+   5 Mg  2  ct2 Mg    3.078E-01  5.363E+00  1.200E+01                       0.00    82
+   6 Mg  2  ct2 Mg    3.078E-01  6.637E+00  1.200E+01                       0.00    83
+   7 Mg  2  ct2 Mg    3.078E-01  7.912E+00  1.200E+01                       0.00    84
+   8 Mg  2  ct2 Mg    3.078E-01  9.186E+00  1.200E+01                       0.00    85
+   9 Mg  2  ct2 Mg    3.078E-01  1.046E+01  1.200E+01                       0.00    86
+  10 Mg  2  ct2 Mg    3.078E-01  1.174E+01  1.200E+01                       0.00    87
+  11 Mg  3  ct2 Mg Mg 1.191E-02  0.000E+00  1.200E+01               -1  1.0 0.00    95
+  12 Mg  3  ct2 Mg Mg 1.191E-02  0.000E+00  1.200E+01                1  1.0 0.00    96
+  13 Mg  3  ct2 Mg Mg 1.191E-02  0.000E+00  1.200E+01               -1  4.0 0.00    97
+  14 Mg  3  ct2 Mg Mg 1.191E-02  0.000E+00  1.200E+01                1  4.0 0.00    98
+-------------------------------------------------------------------------------------------------
+Minimum cutoff radius for element Mg: 12.000000
+Maximum cutoff radius (global)      : 12.000000
+*******************************************************************************
+
+*** SETUP: SYMMETRY FUNCTION MEMORY *******************************************
+
+Symmetry function derivatives memory table for element Mg :
+-------------------------------------------------------------------------------
+Relevant symmetry functions for neighbors with element:
+- Mg:   14 of   14 (100.0 %)
+-------------------------------------------------------------------------------
+*******************************************************************************
+
+*** SETUP: SYMMETRY FUNCTION CACHE ********************************************
+
+Element Mg: in total 2 caches, used 14.00 times on average.
+*******************************************************************************
+
+*** SETUP: SYMMETRY FUNCTION GROUPS *******************************************
+
+Abbreviations:
+--------------
+ind .... Symmetry function index.
+ec ..... Central atom element.
+tp ..... Symmetry function type.
+sbtp ... Symmetry function subtype (e.g. cutoff type).
+e1 ..... Neighbor 1 element.
+e2 ..... Neighbor 2 element.
+eta .... Gaussian width eta.
+rs/rl... Shift distance of Gaussian or left cutoff radius for polynomial.
+angl.... Left cutoff angle for polynomial.
+angr.... Right cutoff angle for polynomial.
+la ..... Angle prefactor lambda.
+zeta ... Angle term exponent zeta.
+rc ..... Cutoff radius / right cutoff radius for polynomial.
+a ...... Free parameter alpha (e.g. cutoff alpha).
+ln ..... Line number in settings file.
+mi ..... Member index.
+sfi .... Symmetry function index.
+e ...... Recalculate exponential term.
+
+Short range atomic symmetry function groups element Mg :
+----------------------------------------------------------------------------------------------------------
+ ind ec tp sbtp e1 e2       eta      rs/rl         rc   angl   angr la zeta    a    ln   mi  sfi e
+----------------------------------------------------------------------------------------------------------
+   1 Mg  2  ct2 Mg            *          *  1.200E+01                       0.00     *    *    *  
+   -  -  -    -  -    3.078E-01  2.646E-01          -                          -    78    1    1  
+   -  -  -    -  -    3.078E-01  1.539E+00          -                          -    79    2    2  
+   -  -  -    -  -    3.078E-01  2.814E+00          -                          -    80    3    3  
+   -  -  -    -  -    3.078E-01  4.088E+00          -                          -    81    4    4  
+   -  -  -    -  -    3.078E-01  5.363E+00          -                          -    82    5    5  
+   -  -  -    -  -    3.078E-01  6.637E+00          -                          -    83    6    6  
+   -  -  -    -  -    3.078E-01  7.912E+00          -                          -    84    7    7  
+   -  -  -    -  -    3.078E-01  9.186E+00          -                          -    85    8    8  
+   -  -  -    -  -    3.078E-01  1.046E+01          -                          -    86    9    9  
+   -  -  -    -  -    3.078E-01  1.174E+01          -                          -    87   10   10  
+   2 Mg  3  ct2 Mg Mg         *          *  1.200E+01                *    * 0.00     *    *    * *
+   -  -  -    -  -  - 1.191E-02  0.000E+00          -               -1  1.0    -    95    1   11 1
+   -  -  -    -  -  - 1.191E-02  0.000E+00          -                1  1.0    -    96    2   12 0
+   -  -  -    -  -  - 1.191E-02  0.000E+00          -               -1  4.0    -    97    3   13 0
+   -  -  -    -  -  - 1.191E-02  0.000E+00          -                1  4.0    -    98    4   14 0
+----------------------------------------------------------------------------------------------------------
+*******************************************************************************
+
+*** SETUP: NEURAL NETWORKS ****************************************************
+
+Normalize neurons (all elements): 0
+-------------------------------------------------------------------------------
+Atomic short range NN for element Mg :
+Number of weights    :    700
+Number of biases     :     41
+Number of connections:    741
+Architecture       14   20   20    1
+-------------------------------------------------------------------------------
+   1   G   t   t   l
+   2   G   t   t    
+   3   G   t   t    
+   4   G   t   t    
+   5   G   t   t    
+   6   G   t   t    
+   7   G   t   t    
+   8   G   t   t    
+   9   G   t   t    
+  10   G   t   t    
+  11   G   t   t    
+  12   G   t   t    
+  13   G   t   t    
+  14   G   t   t    
+  15       t   t    
+  16       t   t    
+  17       t   t    
+  18       t   t    
+  19       t   t    
+  20       t   t    
+-------------------------------------------------------------------------------
+*******************************************************************************
+
+*** SETUP: SYMMETRY FUNCTION SCALING ******************************************
+
+No scaling for symmetry functions.
+*******************************************************************************
+
+*** SETUP: SYMMETRY FUNCTION STATISTICS ***************************************
+
+Equal symmetry function statistics for all elements.
+Collect min/max/mean/sigma                        : 1
+Collect extrapolation warnings                    : 0
+Write extrapolation warnings immediately to stderr: 0
+Halt on any extrapolation warning                 : 0
+*******************************************************************************
+
+*** SETUP: RANDOM NUMBER GENERATOR ********************************************
+
+Seed for rank 16: 2876537340
+Seed for global RNG: 2884732358
+*******************************************************************************
+
+*** STRUCTURE DISTRIBUTION ****************************************************
+
+Distributed 156 structures, 46302 bytes (0.04 MiB) transferred.
+Number of local structures: 3
+*******************************************************************************
+
+*** CALCULATING SYMMETRY FUNCTIONS ********************************************
+
+Check the log files of all (!) MPI processes for warnings in this section!
+*******************************************************************************
+
+*** SYMMETRY FUNCTION SCALING *************************************************
+
+*******************************************************************************
+
+*** NEIGHBOR STATISTICS/HISTOGRAM *********************************************
+
+Minimum number of neighbors: 241
+Mean    number of neighbors: 308.1
+Maximum number of neighbors: 358
+*******************************************************************************
+
+*** SYMMETRY FUNCTION HISTOGRAMS **********************************************
+
+*******************************************************************************
+
+*** SYMMETRY FUNCTION FILE ****************************************************
+
+Writing symmetry functions to file: function.data
+*******************************************************************************
+
+*** MEMORY USAGE ESTIMATION ***************************************************
+
+Estimated memory usage for training (keyword "memorize_symfunc_results":
+Valid for training of energies and forces.
+Memory for local structures  :        26050814 bytes (24.84 MiB = 0.02 GiB).
+Memory for all structures    :      1318789736 bytes (1257.70 MiB = 1.23 GiB).
+Average memory per structure :         8453780 bytes (8.06 MiB).
+*******************************************************************************
