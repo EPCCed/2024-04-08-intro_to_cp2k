@@ -1,0 +1,106 @@
+&GLOBAL
+  PROJECT S20Acetone
+  RUN_TYPE ENERGY
+  PREFERRED_DIAG_LIBRARY SL
+  PRINT_LEVEL medium
+&END GLOBAL
+&FORCE_EVAL
+  METHOD Quickstep
+    &PROPERTIES
+      &TDDFPT                          ! input section for TDDFPT
+       KERNEL FULL                       ! specification of the underlying kernel matrix K
+                                         ! FULL kernel is for GGA and hybrid functional computations
+                                         ! sTDA kernel is referring to a semi-empirical sTDA computation
+       NSTATES 10                      ! specifies the number of excited states to be computed
+       MAX_ITER   100                  ! number of iterations for the Davidson algorithm
+       CONVERGENCE [eV] 1.0e-7         ! convergence threshold in eV
+       RKS_TRIPLETS F                  ! Keyword to choose between singlet and triplet excitations
+     !  &XC                            ! If choosing kernel FULL, the underlying functional can be
+     !   &XC_FUNCTIONAL PBE0             ! specified by adding an XC section
+     !   &END XC_FUNCTIONAL              ! The functional can be chosen independently from the chosen
+     !  &END XC                        ! GS functional except when choosing ADMM 
+     !  &MGRID                         ! It is also possible to choose a separate grid for the real-space 
+     !    CUTOFF 800                   ! integration of the response density in the TDDFT part,
+     !    REL_CUTOFF 80                ! however, in general a consistent setup for GS and ES is recommended
+     !  &END MGRID 
+      &END TDDFPT
+    &END PROPERTIES
+  &DFT
+    &QS
+      METHOD GPW
+      EPS_DEFAULT 1.0E-17
+      EPS_PGF_ORB 1.0E-20
+    &END QS
+    &SCF
+      SCF_GUESS restart
+      &OT
+         PRECONDITIONER FULL_ALL
+         MINIMIZER DIIS
+      &END OT
+      &OUTER_SCF
+         MAX_SCF 900
+         EPS_SCF 1.0E-7
+      &END OUTER_SCF
+      MAX_SCF 10
+      EPS_SCF 1.0E-7
+    &END SCF
+    POTENTIAL_FILE_NAME POTENTIAL_UZH
+    BASIS_SET_FILE_NAME BASIS_MOLOPT_UZH
+    BASIS_SET_FILE_NAME BASIS_ADMM_UZH
+    &MGRID
+      CUTOFF 800
+      REL_CUTOFF 80
+    &END MGRID
+    &AUXILIARY_DENSITY_MATRIX_METHOD       ! For hybrid functionals, it is recommended to choose ADMM 
+      METHOD BASIS_PROJECTION              ! the ADMM environment for ground and excited state has to be 
+      EXCH_SCALING_MODEL NONE              ! identical
+      EXCH_CORRECTION_FUNC NONE            ! Triple-zeta auxiliary basis sets are recommended (see below)
+      ADMM_PURIFICATION_METHOD NONE        ! For periodic systems (see below), only specific ADMM options
+    &END AUXILIARY_DENSITY_MATRIX_METHOD   ! are available
+    &POISSON
+       PERIODIC NONE
+       POISSON_SOLVER WAVELET
+    &END
+    &XC
+     &XC_FUNCTIONAL PBE0
+     &END XC_FUNCTIONAL
+    &END XC
+  &END DFT
+  &SUBSYS
+    &CELL
+      ABC [angstrom] 14.0 14.0 14.0
+      PERIODIC NONE
+    &END CELL
+    &COORD
+       C 0.000000 1.282877 -0.611721
+       C 0.000000 -1.282877 -0.611721
+       C 0.000000 0.000000 0.185210
+       O 0.000000 0.000000 1.392088
+       H 0.000000 2.133711 0.059851
+       H -0.876575 1.319344 -1.256757
+       H 0.876575 1.319344 -1.256757
+       H 0.000000 -2.133711 0.059851
+       H 0.876575 -1.319344 -1.256757
+       H -0.876575 -1.319344 -1.256757
+    &END COORD
+    &TOPOLOGY
+     &CENTER_COORDINATES T
+     &END
+    &END
+    &KIND H
+      BASIS_SET ORB DZVP-MOLOPT-PBE0-GTH-q1  ! in general it is recommended to use larger basis  sets
+      BASIS_SET AUX_FIT admm-dzp-q1          ! for the primary and auxiliary basis (TZVP/tzp)
+      POTENTIAL GTH-PBE0-q1
+    &END KIND
+    &KIND O
+      BASIS_SET ORB DZVP-MOLOPT-PBE0-GTH-q6
+      BASIS_SET AUX_FIT admm-dzp-q6
+      POTENTIAL GTH-PBE0-q6
+    &END KIND
+    &KIND C
+      BASIS_SET ORB DZVP-MOLOPT-PBE0-GTH-q4
+      BASIS_SET AUX_FIT admm-dzp-q4
+      POTENTIAL GTH-PBE0-q4
+    &END KIND
+  &END SUBSYS
+&END FORCE_EVAL
